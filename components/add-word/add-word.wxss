@@ -1,0 +1,109 @@
+/* 忆闪 - 添加单词弹窗样式（增强版） */
+
+.add-overlay {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 150;
+  background: rgba(15, 23, 42, 0.5);
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+.add-modal {
+  width: 100%;
+  max-width: 700rpx;
+  background: var(--color-white);
+  border-radius: var(--radius-xl) var(--radius-xl) 0 0;
+  padding-bottom: env(safe-area-inset-bottom);
+  animation: slideUp 0.3s ease;
+}
+
+@keyframes slideUp {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.add-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32rpx;
+  border-bottom: 2rpx solid var(--color-slate-100);
+}
+
+.add-title { font-size: 32rpx; font-weight: 800; color: var(--color-slate-900); }
+.add-close { font-size: 32rpx; color: var(--color-slate-300); padding: 8rpx; }
+
+.add-body {
+  padding: 32rpx;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+.add-field {
+  margin-bottom: 28rpx;
+}
+
+.add-label {
+  display: block;
+  font-size: 24rpx;
+  font-weight: 700;
+  color: var(--color-slate-600);
+  margin-bottom: 12rpx;
+}
+
+.add-category-select {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24rpx 32rpx;
+  background: var(--color-slate-50);
+  border: 2rpx solid var(--color-slate-200);
+  border-radius: var(--radius-md);
+  font-size: 26rpx;
+  color: var(--color-slate-500);
+}
+
+.add-arrow { font-size: 20rpx; color: var(--color-slate-300); }
+
+.category-dropdown {
+  margin-top: 8rpx;
+  background: var(--color-white);
+  border: 2rpx solid var(--color-slate-100);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.category-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20rpx 32rpx;
+  font-size: 26rpx;
+  color: var(--color-slate-600);
+  border-bottom: 2rpx solid var(--color-slate-50);
+}
+
+.category-item:last-child { border-bottom: none; }
+
+.category-item.active {
+  background: var(--color-primary-bg);
+  color: var(--color-primary);
+  font-weight: 700;
+}
+
+.category-item:active { background: var(--color-slate-50); }
+
+.add-footer {
+  display: flex;
+  gap: 24rpx;
+  padding: 24rpx 32rpx;
+  border-top: 2rpx solid var(--color-slate-100);
+}

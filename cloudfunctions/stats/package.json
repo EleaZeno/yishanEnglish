@@ -1,0 +1,7 @@
+{
+  "name": "yishan-stats",
+  "version": "1.0.0",
+  "description": "忆闪 YiShan - 统计数据",
+  "main": "index.js",
+  "dependencies": { "wx-server-sdk": "~2.6.3" }
+}

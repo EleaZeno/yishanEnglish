@@ -1,0 +1,9 @@
+{
+  "usingComponents": {
+    "flashcard": "/components/flashcard/flashcard",
+    "add-word": "/components/add-word/add-word"
+  },
+  "navigationStyle": "custom",
+  "backgroundColor": "#f8fafc",
+  "disableScroll": true
+}

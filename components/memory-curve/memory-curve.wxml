@@ -1,0 +1,2 @@
+<!-- 忆闪 - 记忆曲线组件（Canvas 2D） -->
+<canvas type="2d" id="curveCanvas" class="curve-canvas" style="width: {{width}}rpx; height: {{height}}rpx;"></canvas>

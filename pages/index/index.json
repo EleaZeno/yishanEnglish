@@ -1,0 +1,8 @@
+{
+  "usingComponents": {
+    "vocab-test": "/components/vocab-test/vocab-test"
+  },
+  "navigationStyle": "custom",
+  "enablePullDownRefresh": true,
+  "backgroundColor": "#f8fafc"
+}

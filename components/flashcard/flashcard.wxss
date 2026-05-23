@@ -1,0 +1,336 @@
+/* 忆闪 YiShan - 闪卡组件 v2：现代设计 + 极速跟手 */
+
+.flashcard-root {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+/* ========== 卡片外壳 ========== */
+.card-drag-shell {
+  width: 100%;
+  aspect-ratio: 4/5;
+  position: relative;
+  z-index: 2;
+  will-change: transform, opacity;
+  /* transition 由 JS 动态控制，drag 期间为 "none" */
+}
+
+.card-inner {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+/* ========== 正面 - 渐变 ========== */
+.card-face {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  border-radius: 48rpx;
+  overflow: hidden;
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+              transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card-front {
+  background: linear-gradient(155deg, #6366f1 0%, #8b5cf6 38%, #a855f7 75%, #c084fc 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 56rpx;
+  box-shadow: 0 36rpx 80rpx rgba(99, 102, 241, 0.38),
+              0 12rpx 28rpx rgba(99, 102, 241, 0.18);
+  opacity: 1;
+  transform: scale(1);
+}
+
+.card-inner.flipped .card-front {
+  opacity: 0;
+  transform: scale(0.92);
+  pointer-events: none;
+}
+
+.front-shine {
+  position: absolute;
+  top: -80rpx;
+  right: -80rpx;
+  width: 360rpx;
+  height: 360rpx;
+  background: radial-gradient(circle at center, rgba(255,255,255,0.12) 0%, transparent 65%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+
+.front-word {
+  font-size: 88rpx;
+  font-weight: 900;
+  color: #ffffff;
+  text-align: center;
+  letter-spacing: -2rpx;
+  word-break: break-all;
+  line-height: 1.12;
+  text-shadow: 0 4rpx 24rpx rgba(0,0,0,0.18);
+  z-index: 1;
+  padding: 0 24rpx;
+}
+
+.front-speaker {
+  position: absolute;
+  top: 24rpx;
+  right: 24rpx;
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.15);
+  border-radius: 50%;
+  z-index: 2;
+}
+
+.speaker-icon {
+  font-size: 32rpx;
+}
+
+.front-footer {
+  position: absolute;
+  bottom: 36rpx;
+  left: 0; right: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.stability-bar {
+  width: 120rpx;
+  height: 6rpx;
+  background: rgba(255,255,255,0.2);
+  border-radius: 3rpx;
+  overflow: hidden;
+}
+
+.stability-fill {
+  height: 100%;
+  background: rgba(255,255,255,0.85);
+  border-radius: 3rpx;
+  transition: width 0.5s ease;
+}
+
+.front-hint {
+  font-size: 22rpx;
+  color: rgba(255,255,255,0.45);
+  font-weight: 500;
+  letter-spacing: 1rpx;
+}
+
+/* ========== 背面 ========== */
+.card-back {
+  background: #ffffff;
+  box-shadow: 0 28rpx 64rpx rgba(0,0,0,0.09),
+              0 6rpx 20rpx rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 48rpx;
+  opacity: 0;
+  transform: scale(0.92);
+  pointer-events: none;
+}
+
+.card-inner.flipped .card-back {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: auto;
+}
+
+.back-word {
+  font-size: 36rpx;
+  font-weight: 700;
+  color: #1e293b;
+  text-align: center;
+  line-height: 1.65;
+  width: 100%;
+}
+
+.back-divider {
+  width: 72rpx;
+  height: 4rpx;
+  background: #e2e8f0;
+  border-radius: 2rpx;
+  margin: 36rpx 0;
+}
+
+.back-meta {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 18rpx;
+}
+
+.meta-label {
+  font-size: 22rpx;
+  font-weight: 700;
+  color: #94a3b8;
+  text-transform: uppercase;
+  letter-spacing: 1rpx;
+}
+
+.meta-value {
+  font-size: 26rpx;
+  color: #475569;
+}
+
+/* ========== 滑动指示器 ========== */
+.action-indicator {
+  position: absolute;
+  top: 50%;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16rpx;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+.action-left  { left:  -20rpx; }
+.action-right { right: -20rpx; }
+
+.action-badge {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.action-badge-master {
+  background: linear-gradient(135deg, #10b981, #059669);
+  box-shadow: 0 10rpx 28rpx rgba(16, 185, 129, 0.35);
+}
+.action-badge-review {
+  background: linear-gradient(135deg, #f59e0b, #d97706);
+  box-shadow: 0 10rpx 28rpx rgba(245, 158, 11, 0.35);
+}
+
+.ab-icon { position: relative; }
+
+.ab-icon-check::before {
+  content: "✓";
+  color: #fff;
+  font-size: 48rpx;
+  font-weight: 900;
+}
+
+.ab-icon-again::before {
+  content: "↻";
+  color: #fff;
+  font-size: 48rpx;
+  font-weight: 900;
+}
+
+.action-text {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #475569;
+}
+
+/* ========== 质量评分浮层 ========== */
+.quality-overlay {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.97);
+  border-radius: 48rpx;
+  -webkit-backdrop-filter: blur(24rpx);
+  animation: qFadeIn 0.28s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@keyframes qFadeIn {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+.quality-card {
+  width: 100%;
+  padding: 32rpx 24rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 28rpx;
+}
+
+.quality-title {
+  font-size: 38rpx;
+  font-weight: 900;
+  color: #0f172a;
+  text-align: center;
+}
+
+.quality-desc {
+  font-size: 24rpx;
+  color: #94a3b8;
+  text-align: center;
+  line-height: 1.5;
+  padding: 0 24rpx;
+}
+
+.quality-buttons {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 14rpx;
+}
+
+.q-btn {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  padding: 26rpx 36rpx;
+  border-radius: 28rpx;
+  background: #f8fafc;
+  border: 2rpx solid transparent;
+  transition: all 0.12s;
+}
+
+.q-btn:active {
+  background: #eef2ff;
+  border-color: #818cf8;
+  transform: scale(0.98);
+}
+
+.q-num {
+  font-size: 48rpx;
+  font-weight: 900;
+  color: #6366f1;
+  width: 72rpx;
+  text-align: center;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.q-label {
+  font-size: 28rpx;
+  font-weight: 600;
+  color: #334155;
+}
+
+.quality-skip {
+  padding: 16rpx 0;
+}
+
+.q-skip-text {
+  font-size: 24rpx;
+  color: #94a3b8;
+  font-weight: 600;
+}

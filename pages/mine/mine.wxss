@@ -1,0 +1,207 @@
+/* 忆闪 YiShan - 我的页面样式（增强版） */
+
+.page { background: var(--color-slate-50); min-height: 100vh; display: flex; flex-direction: column; }
+.content { flex: 1; }
+
+/* 个人卡片 */
+.profile-card {
+  display: flex;
+  align-items: center;
+  gap: 24rpx;
+  margin: 24rpx 32rpx;
+  padding: 32rpx;
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+}
+
+.profile-avatar { font-size: 72rpx; }
+.login-avatar { font-size: 72rpx; }
+
+.profile-avatar-img {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.profile-login-desc {
+  font-size: 24rpx;
+  color: var(--text-tertiary);
+  display: block;
+  margin-bottom: 16rpx;
+}
+
+.login-mini-btn {
+  display: inline-block;
+  font-size: 26rpx;
+  font-weight: 700;
+  color: var(--accent-primary);
+  padding: 8rpx 20rpx;
+  background: var(--accent-gradient);
+  color: #fff;
+  border-radius: var(--radius-md);
+}
+
+.tag-cloud {
+  background: linear-gradient(135deg, #10b981, #059669) !important;
+  color: #fff !important;
+}
+
+.profile-info { flex: 1; }
+
+.profile-name {
+  font-size: 36rpx;
+  font-weight: 900;
+  color: var(--color-slate-900);
+  display: block;
+  margin-bottom: 12rpx;
+}
+
+.profile-tags { display: flex; gap: 12rpx; flex-wrap: wrap; }
+
+/* 区块 */
+.section {
+  margin: 0 32rpx 24rpx;
+}
+
+.section-title {
+  font-size: 26rpx;
+  font-weight: 800;
+  color: var(--color-slate-500);
+  text-transform: uppercase;
+  letter-spacing: 1rpx;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+/* 统计行 */
+.stats-row {
+  display: flex;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.stat-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 28rpx 16rpx;
+  border-right: 2rpx solid var(--color-slate-50);
+}
+
+.stat-item:last-child { border-right: none; }
+
+.stat-num { font-size: 44rpx; font-weight: 900; line-height: 1; }
+.stat-desc { font-size: 22rpx; color: var(--color-slate-400); margin-top: 6rpx; }
+
+/* 稳定性分布 */
+.buckets-list {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 24rpx;
+}
+
+.bucket-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+
+.bucket-row:last-child { margin-bottom: 0; }
+
+.bucket-label {
+  width: 160rpx;
+  font-size: 22rpx;
+  font-weight: 700;
+  color: var(--color-slate-600);
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.bucket-bar-track {
+  flex: 1;
+  height: 16rpx;
+  background: var(--color-slate-100);
+  border-radius: 8rpx;
+  overflow: hidden;
+}
+
+.bucket-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-success));
+  border-radius: 8rpx;
+  transition: width 0.5s ease;
+  min-width: 4rpx;
+}
+
+.bucket-count {
+  width: 48rpx;
+  text-align: center;
+  font-size: 24rpx;
+  font-weight: 800;
+  color: var(--color-slate-500);
+  flex-shrink: 0;
+}
+
+/* 本周图表 */
+.week-chart {
+  display: flex;
+  justify-content: space-between;
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 28rpx 24rpx 20rpx;
+}
+
+.week-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12rpx;
+  flex: 1;
+}
+
+.week-bar-wrapper {
+  height: 160rpx;
+  display: flex;
+  align-items: flex-end;
+}
+
+.week-bar {
+  width: 36rpx;
+  background: var(--color-primary);
+  border-radius: 8rpx 8rpx 0 0;
+  transition: height 0.3s ease;
+  min-height: 4rpx;
+}
+
+.week-label {
+  font-size: 22rpx;
+  font-weight: 700;
+}
+
+/* 操作 */
+.actions-section {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+}
+
+.action-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 28rpx 32rpx;
+  font-size: 28rpx;
+  font-weight: 600;
+  color: var(--color-slate-700);
+  border-bottom: 2rpx solid var(--color-slate-50);
+}
+
+.action-row:last-child { border-bottom: none; }
+.action-row:active { background: var(--color-slate-50); }
+
+.action-arrow { color: var(--color-slate-300); font-weight: 400; }
+.action-danger { color: var(--color-danger); }

@@ -1,0 +1,104 @@
+<!-- 忆闪 YiShan - 首页 Dashboard（增强版） -->
+<view class="page">
+  <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-header" style="height: {{navBarHeight}}px;">
+      <view class="nav-title-group">
+        <text class="nav-subtitle">学习概览</text>
+        <text class="nav-title">忆闪 YiShan</text>
+      </view>
+      <!-- 打卡徽章 -->
+      <view class="streak-badge" wx:if="{{streak > 0}}">
+        <text class="streak-num">{{streak}}</text>
+        <text class="streak-label">天</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载骨架 -->
+  <view class="loading-skeleton" wx:if="{{isLoading}}">
+    <view class="skeleton skeleton-card" style="height:200rpx;margin:24rpx 32rpx;"></view>
+    <view class="skeleton skeleton-card" style="height:300rpx;margin:16rpx 32rpx;"></view>
+  </view>
+
+  <scroll-view class="content" scroll-y enhanced show-scrollbar="{{false}}" refresher-enabled bindrefresherrefresh="onPullDownRefresh" wx:else>
+    <!-- 今日进度 -->
+    <view class="today-banner" wx:if="{{todayStudied > 0}}" style="margin: 24rpx 32rpx 0;">
+      <view class="today-info">
+        <text class="today-icon">☀️</text>
+        <view class="today-text">
+          <text class="today-title">今日已完成 {{todayStudied}} 个单词</text>
+          <text class="today-sub">连续打卡 {{streak}} 天 · 保持节奏 🔥</text>
+        </view>
+      </view>
+    </view>
+    <view class="today-banner today-banner-idle" style="margin: 24rpx 32rpx 0;" wx:elif="{{stats.total > 0}}">
+      <view class="today-info">
+        <text class="today-icon">🌙</text>
+        <view class="today-text">
+          <text class="today-title">今天还没有学习哦</text>
+          <text class="today-sub">{{advice.message}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 统计卡片 -->
+    <view class="stats-grid">
+      <view class="stat-card stat-card-primary">
+        <text class="stat-label">待复习</text>
+        <text class="stat-value">{{stats.due}}</text>
+        <text class="stat-sub">{{stats.total > 0 ? '占 ' + Math.round(stats.due/stats.total*100) + '%' : '无数据'}}</text>
+      </view>
+      <view class="stat-card" bindtap="onOpenVocabTest">
+        <text class="stat-label">词汇量估算</text>
+        <text class="stat-value stat-value-dark">{{estimatedVocab}}</text>
+        <text class="stat-sub">点击重测</text>
+      </view>
+      <view class="stat-card stat-card-white">
+        <text class="stat-label">平均留存率</text>
+        <text class="stat-value stat-value-green">{{avgRecall}}%</text>
+        <text class="stat-sub">30天预测</text>
+      </view>
+      <view class="stat-card stat-card-white">
+        <text class="stat-label">高稳定占比</text>
+        <text class="stat-value stat-value-indigo">{{connectivity}}%</text>
+        <text class="stat-sub">已掌握</text>
+      </view>
+    </view>
+
+    <!-- 遗忘曲线 -->
+    <view class="chart-area" wx:if="{{stats.total >= 5}}">
+      <memory-curve words="{{words}}"></memory-curve>
+    </view>
+    <view class="card card-shadow" style="margin: 24rpx 32rpx;" wx:else>
+      <view class="empty-state" style="padding: 60rpx 32rpx;">
+        <text class="empty-icon" style="font-size: 64rpx;">📊</text>
+        <text class="empty-desc" style="margin-bottom: 0;">至少需要 5 个单词来生成预测曲线</text>
+      </view>
+    </view>
+
+    <!-- CTA 卡片 -->
+    <view class="cta-card card-shadow">
+      <view class="cta-header">
+        <text class="tag tag-primary">引擎 v5</text>
+        <text class="cta-title">SM-2 自适应引擎</text>
+      </view>
+      <text class="cta-desc" wx:if="{{stats.due > 0}}">
+        检测到 {{stats.due}} 个单词需要复习，建议立即开始。
+      </text>
+      <text class="cta-desc" wx:elif="{{stats.total === 0}}">
+        开始添加你的第一个单词，建立你的专属词库。
+      </text>
+      <text class="cta-desc" wx:else>
+        所有单词记忆稳定，保持当前学习节奏。
+      </text>
+      <button class="btn btn-primary btn-block btn-lg" bindtap="onStartStudy">
+        <text>{{stats.due > 0 ? '开始复习' : (stats.total > 0 ? '进入词库' : '添加第一个单词')}}</text>
+      </button>
+    </view>
+
+    <view class="safe-bottom"></view>
+  </scroll-view>
+
+  <!-- 词汇量测试弹窗 -->
+  <vocab-test wx:if="{{showVocabTest}}" bind:close="onCloseVocabTest" bind:finish="onVocabFinish"></vocab-test>
+</view>

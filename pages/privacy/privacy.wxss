@@ -1,0 +1,15 @@
+.page { background: #f8fafc; min-height: 100vh; }
+.nav-bar { background: #fff; border-bottom: 1rpx solid #f1f5f9; position: sticky; top: 0; z-index: 100; }
+.nav-header { display: flex; align-items: center; justify-content: space-between; padding: 0 32rpx; }
+.nav-back { font-size: 30rpx; color: #6366f1; font-weight: 700; width: 120rpx; }
+.nav-title { font-size: 34rpx; font-weight: 800; color: #0f172a; }
+.content { height: calc(100vh - 88px); }
+.card { background: #fff; border-radius: 24rpx; }
+
+.p-title { display: block; font-size: 40rpx; font-weight: 900; color: #0f172a; margin-bottom: 8rpx; }
+.p-date { display: block; font-size: 24rpx; color: #94a3b8; margin-bottom: 32rpx; }
+.p-section { margin-bottom: 32rpx; }
+.p-h { display: block; font-size: 30rpx; font-weight: 800; color: #0f172a; margin-bottom: 12rpx; }
+.p-p { display: block; font-size: 26rpx; color: #475569; line-height: 1.8; margin-bottom: 8rpx; }
+.p-li { display: block; font-size: 26rpx; color: #475569; line-height: 1.8; padding-left: 16rpx; }
+.p-footer { margin-top: 48rpx; padding-top: 24rpx; border-top: 1rpx solid #f1f5f9; text-align: center; }

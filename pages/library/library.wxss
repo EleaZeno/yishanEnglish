@@ -1,0 +1,217 @@
+/* 忆闪 YiShan - 词库 v2 */
+
+.page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #f8fafc;
+}
+
+/* ========== 搜索框 ========== */
+.nav-search { padding: 0 32rpx 20rpx; }
+
+.search-box {
+  display: flex;
+  align-items: center;
+  background: #f1f5f9;
+  border-radius: 28rpx;
+  padding: 0 24rpx;
+  border: 2rpx solid transparent;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.search-box:focus-within {
+  border-color: #818cf8;
+  background: #fff;
+}
+
+.search-icon { font-size: 28rpx; margin-right: 12rpx; opacity: 0.4; }
+
+.search-input {
+  flex: 1;
+  height: 72rpx;
+  font-size: 28rpx;
+  background: transparent;
+}
+
+.search-clear {
+  padding: 8rpx;
+  font-size: 24rpx;
+  color: #94a3b8;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.15s;
+}
+
+.search-clear.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+/* ========== 统计条 ========== */
+.stats-bar {
+  display: flex;
+  align-items: center;
+  padding: 16rpx 32rpx;
+  background: #fff;
+  border-bottom: 1rpx solid #f1f5f9;
+}
+
+.stats-item {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4rpx;
+}
+
+.stats-num {
+  font-size: 40rpx;
+  font-weight: 900;
+  line-height: 1;
+  color: #1e293b;
+}
+
+.stats-lbl {
+  font-size: 20rpx;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.stats-divider {
+  width: 2rpx;
+  height: 40rpx;
+  background: #e2e8f0;
+}
+
+/* ========== 单词卡片 ========== */
+.word-list {
+  flex: 1;
+  padding: 12rpx 16rpx;
+}
+
+.word-card {
+  display: flex;
+  align-items: stretch;
+  background: #fff;
+  border-radius: 24rpx;
+  margin: 6rpx 0;
+  overflow: hidden;
+  box-shadow: 0 2rpx 8rpx rgba(0,0,0,0.03);
+  transition: transform 0.15s;
+}
+
+.word-card:active {
+  transform: scale(0.985);
+  background: #f8fafc;
+}
+
+/* 左侧稳定性色条 */
+.wc-accent {
+  width: 8rpx;
+  flex-shrink: 0;
+  transition: background 0.3s;
+}
+
+.accent-master { background: #10b981; }
+.accent-good   { background: #6366f1; }
+.accent-learn  { background: #f59e0b; }
+.accent-new    { background: #cbd5e1; }
+
+.wc-body {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 24rpx 24rpx 28rpx;
+  min-width: 0;
+}
+
+.wc-main {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6rpx;
+}
+
+.wc-word {
+  font-size: 32rpx;
+  font-weight: 800;
+  color: #0f172a;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wc-def {
+  font-size: 24rpx;
+  color: #64748b;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.wc-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 8rpx;
+  margin-left: 20rpx;
+  flex-shrink: 0;
+}
+
+.wc-stability {
+  font-size: 20rpx;
+  font-weight: 700;
+  padding: 4rpx 14rpx;
+  border-radius: 12rpx;
+}
+
+.s-master { background: #ecfdf5; color: #059669; }
+.s-good   { background: #eef2ff; color: #4f46e5; }
+.s-learn  { background: #fffbeb; color: #d97706; }
+.s-new    { background: #f1f5f9; color: #64748b; }
+
+.wc-date {
+  font-size: 20rpx;
+  color: #cbd5e1;
+  font-weight: 500;
+}
+
+.wc-arrow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48rpx;
+  font-size: 36rpx;
+  color: #cbd5e1;
+  font-weight: 300;
+  flex-shrink: 0;
+}
+
+/* ========== 编辑表单 ========== */
+.form-group { margin-bottom: 28rpx; }
+
+.form-label {
+  display: block;
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #475569;
+  margin-bottom: 12rpx;
+}
+
+.textarea {
+  width: 100%;
+  min-height: 160rpx;
+  padding: 20rpx 24rpx;
+  background: #f8fafc;
+  border: 2rpx solid #e2e8f0;
+  border-radius: 20rpx;
+  font-size: 28rpx;
+  box-sizing: border-box;
+}
+
+.textarea:focus { border-color: #818cf8; background: #fff; }
+
+.modal-del { font-size: 32rpx; padding: 8rpx; }

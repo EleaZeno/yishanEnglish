@@ -1,0 +1,7 @@
+{
+  "usingComponents": {
+    "memory-curve": "/components/memory-curve/memory-curve"
+  },
+  "navigationStyle": "custom",
+  "backgroundColor": "#f8fafc"
+}

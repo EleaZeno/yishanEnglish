@@ -1,0 +1,138 @@
+<!-- 忆闪 YiShan v3 - 我的页面（增强版：导入+云同步+暗色模式+分类统计） -->
+<view class="page">
+  <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-header" style="height: {{navBarHeight}}px;">
+      <text class="nav-title">我的</text>
+      <text class="nav-btn" bindtap="onToggleAbout">ℹ️</text>
+    </view>
+  </view>
+
+  <scroll-view class="content" scroll-y enhanced show-scrollbar="{{false}}" refresher-enabled bindrefresherrefresh="onPullDownRefresh">
+    <!-- 个人概览 -->
+    <view class="profile-card">
+      <block wx:if="{{isLoggedIn}}">
+        <image class="profile-avatar-img" src="{{userInfo.avatarUrl}}" mode="aspectFill" wx:if="{{userInfo.avatarUrl}}"></image>
+        <view class="profile-avatar" wx:else>🧠</view>
+        <view class="profile-info">
+          <text class="profile-name">{{userInfo.nickName || '忆闪学习者'}}</text>
+          <view class="profile-tags">
+            <text class="tag tag-success" wx:if="{{streak > 0}}">🔥 {{streak}}天连续</text>
+            <text class="tag tag-primary">稳定性 {{avgStability}}%</text>
+            <text class="tag tag-cloud">☁ 已同步</text>
+          </view>
+        </view>
+      </block>
+      <block wx:else>
+        <view class="profile-avatar login-avatar">💚</view>
+        <view class="profile-info">
+          <text class="profile-name">微信登录</text>
+          <text class="profile-login-desc">登录后数据自动云同步，多端可用</text>
+          <view class="login-mini-btn" bindtap="onLogin">立即登录 →</view>
+        </view>
+      </block>
+    </view>
+
+    <!-- 学习统计 -->
+    <view class="section">
+      <text class="section-title">⏱️ 学习统计</text>
+      <view class="stats-row">
+        <view class="stat-item">
+          <text class="stat-num">{{stats.total}}</text><text class="stat-desc">总词汇</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num text-success">{{stats.mastered}}</text><text class="stat-desc">已掌握</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num text-primary">{{stats.due}}</text><text class="stat-desc">待复习</text>
+        </view>
+        <view class="stat-item">
+          <text class="stat-num text-slate-600">{{todayStudied}}</text><text class="stat-desc">今日学习</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 分类统计 -->
+    <view class="section" wx:if="{{categories.length > 0}}">
+      <text class="section-title">📂 分类统计</text>
+      <view class="buckets-list">
+        <view class="bucket-row" wx:for="{{categories}}" wx:key="category">
+          <text class="bucket-label">{{item.category}}</text>
+          <view class="bucket-bar-track">
+            <view class="bucket-bar-fill" style="width: {{(item.count / stats.total) * 100}}%; background: var(--accent-gradient);"></view>
+          </view>
+          <text class="bucket-count">{{item.count}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 词汇分布 -->
+    <view class="section" wx:if="{{buckets.length > 0}}">
+      <text class="section-title">📊 稳定性分布</text>
+      <view class="buckets-list">
+        <view class="bucket-row" wx:for="{{buckets}}" wx:key="label">
+          <text class="bucket-label">{{item.label}}</text>
+          <view class="bucket-bar-track">
+            <view class="bucket-bar-fill" style="width: {{item.pct}}%"></view>
+          </view>
+          <text class="bucket-count">{{item.count}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 本周记录 -->
+    <view class="section" wx:if="{{weekData.length > 0}}">
+      <text class="section-title">📅 本周记录</text>
+      <view class="week-chart">
+        <view class="week-col" wx:for="{{weekData}}" wx:key="date">
+          <view class="week-bar-wrapper">
+            <view class="week-bar" style="height: {{item.count > 0 ? Math.max(8, Math.min(item.count * 4, 160)) : 4}}rpx; opacity: {{item.count > 0 ? 1 : 0.2}}"></view>
+          </view>
+          <text class="week-label" style="color: {{item.count > 0 ? 'var(--color-slate-600)' : 'var(--color-slate-300)'}}">{{item.day}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 数据操作 -->
+    <view class="section actions-section">
+      <view class="action-row" bindtap="onExportData">
+        <text>📤 导出数据</text><text class="action-arrow">→</text>
+      </view>
+      <view class="action-row" bindtap="onShowImport">
+        <text>📥 导入数据</text><text class="action-arrow">→</text>
+      </view>
+      <view class="action-row" bindtap="onCloudBackup">
+        <text>☁️ 云备份 {{cloudSyncing ? '...' : ''}}</text><text class="action-arrow">→</text>
+      </view>
+      <view class="action-row" bindtap="onCloudRestore">
+        <text>⬇️ 云恢复</text><text class="action-arrow">→</text>
+      </view>
+      <!-- 分隔 -->
+      <view class="action-row" bindtap="onToggleDarkMode">
+        <text>{{isDarkMode ? '☀️ 亮色模式' : '🌙 暗色模式'}}</text><text class="action-arrow">→</text>
+      </view>
+      <view class="action-row" bindtap="onResetGuide">
+        <text>🔄 重新引导</text><text class="action-arrow">→</text>
+      </view>
+      <view class="action-row" bindtap="onPrivacy">
+        <text>📋 隐私政策</text><text class="action-arrow">→</text>
+      </view>
+      <view class="action-row action-danger" bindtap="onClearAll">
+        <text>🗑️ 清空所有数据</text><text class="action-arrow">→</text>
+      </view>
+    </view>
+
+    <view class="safe-bottom"></view>
+  </scroll-view>
+</view>
+
+<!-- 导入弹窗 -->
+<view class="modal-mask" wx:if="{{showImport}}" catchtap="onCloseImport">
+  <view class="modal-card" catchtap="noop">
+    <text class="modal-title">📥 导入 JSON 数据</text>
+    <textarea class="import-textarea" placeholder="粘贴 JSON 数据..." value="{{importText}}" bindinput="onImportInput" maxlength="50000" auto-height />
+    <view class="flex-row gap-16" style="margin-top: 24rpx;">
+      <view class="btn btn-ghost" bindtap="onCloseImport">取消</view>
+      <view class="btn btn-primary flex-1" bindtap="onConfirmImport">导入</view>
+    </view>
+  </view>
+</view>

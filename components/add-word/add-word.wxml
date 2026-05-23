@@ -1,0 +1,47 @@
+<!-- 忆闪 - 增强添加单词弹窗 -->
+<view class="add-overlay" catchtap="onDismiss">
+  <view class="add-modal" catchtap>
+    <view class="add-header">
+      <text class="add-title">添加新单词</text>
+      <text class="add-close" bindtap="onDismiss">✕</text>
+    </view>
+
+    <view class="add-body">
+      <view class="add-field">
+        <text class="add-label">单词 *</text>
+        <input class="input" placeholder="输入单词" value="{{word}}" data-field="word" bindinput="onInput" focus />
+      </view>
+
+      <view class="add-field">
+        <text class="add-label">释义 *</text>
+        <textarea class="textarea" placeholder="输入中文释义" value="{{definition}}" data-field="definition" bindinput="onInput" />
+      </view>
+
+      <view class="add-field">
+        <text class="add-label">发音提示</text>
+        <input class="input" placeholder="如: /kəˈmjuːnɪkeɪt/" value="{{sounds_like}}" data-field="sounds_like" bindinput="onInput" />
+      </view>
+
+      <view class="add-field">
+        <text class="add-label">分类</text>
+        <view class="add-category-select" bindtap="onToggleCategory">
+          <text>{{category || '选择分类（可选）'}}</text>
+          <text class="add-arrow">▼</text>
+        </view>
+        <view class="category-dropdown" wx:if="{{showCategoryPicker}}">
+          <view class="category-item {{category === item ? 'active' : ''}}" wx:for="{{categoryOptions}}" wx:key="*this" data-cat="{{item}}" bindtap="onSelectCategory">
+            <text>{{item || '不分类'}}</text>
+            <text wx:if="{{category === item}}">✓</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="add-footer">
+      <button class="btn btn-ghost" bindtap="onDismiss">取消</button>
+      <button class="btn btn-primary btn-block" style="flex:2" bindtap="onSubmit" disabled="{{isSubmitting}}">
+        + 添加
+      </button>
+    </view>
+  </view>
+</view>

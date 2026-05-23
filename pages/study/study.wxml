@@ -1,0 +1,87 @@
+<!-- 忆闪 YiShan v4 - 学习（直接闪卡模式） -->
+<view class="page-enter">
+  <!-- 玻璃导航 -->
+  <view class="glass-nav">
+    <view class="flex-between">
+      <view>
+        <text class="glass-nav-title">📚 学习</text>
+        <text class="nav-sub" wx:if="{{sessionWords.length}}">{{currentIndex + 1}} / {{sessionWords.length}}</text>
+      </view>
+      <view class="flex-row gap-12">
+        <view class="tag tag-primary" bindtap="onAddWord">+ 添加</view>
+        <view class="tag tag-slate" bindtap="onImportCore">导入</view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 加载中 -->
+  <block wx:if="{{loading}}">
+    <view class="empty-state">
+      <view class="spinner"></view>
+      <text class="empty-desc">加载中...</text>
+    </view>
+  </block>
+
+  <!-- 完成 -->
+  <block wx:elif="{{isFinished}}">
+    <view class="finish-container">
+      <text class="finish-emoji">🎉</text>
+      <text class="finish-title">学习完成！</text>
+      <view class="finish-stats">
+        <view class="fstat-item">
+          <text class="fstat-num">{{sessionStats.studied}}</text>
+          <text class="fstat-label">今日学习</text>
+        </view>
+        <view class="fstat-item">
+          <text class="fstat-num s-success">{{sessionStats.mastered}}</text>
+          <text class="fstat-label">已掌握</text>
+        </view>
+        <view class="fstat-item">
+          <text class="fstat-num s-warning">{{sessionStats.failed}}</text>
+          <text class="fstat-label">需复习</text>
+        </view>
+        <view class="fstat-item">
+          <text class="fstat-num">🔥 {{streak}}</text>
+          <text class="fstat-label">连续打卡</text>
+        </view>
+      </view>
+      <view class="flex-row gap-16" style="margin-top:40rpx;">
+        <view class="btn btn-outline" bindtap="onComplete">返回首页</view>
+        <view class="btn btn-primary" bindtap="onContinue">继续学习</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 无可复习词 -->
+  <block wx:elif="{{sessionWords.length === 0}}">
+    <view class="empty-state">
+      <text class="empty-emoji">✨</text>
+      <text class="empty-title">没有待复习的单词</text>
+      <text class="empty-desc">所有单词都在最佳复习间隔内</text>
+      <view class="flex-row gap-16" style="margin-top:40rpx;">
+        <view class="btn btn-primary" bindtap="onAddWord">添加单词</view>
+        <view class="btn btn-ghost" bindtap="onImportCore">导入词包</view>
+      </view>
+    </view>
+  </block>
+
+  <!-- 闪卡 · 直接滑动 -->
+  <block wx:else>
+    <view class="stage-flashcard">
+      <flashcard
+        word="{{sessionWords[currentIndex]}}"
+        bind:result="onSwipeResult"
+      />
+      <view class="flex-row gap-16" style="margin-top:32rpx;justify-content:center;">
+        <text class="swipe-hint" style="color:#10b981;">← 已掌握</text>
+        <text style="color:#94a3b8;">{{currentIndex + 1}} / {{sessionWords.length}}</text>
+        <text class="swipe-hint" style="color:#f59e0b;">再复习 →</text>
+      </view>
+    </view>
+  </block>
+
+  <!-- 添加单词弹窗 -->
+  <view class="modal-mask" wx:if="{{showAddWord}}">
+    <add-word bind:save="onSaveWord" bind:cancel="onCloseAddWord" />
+  </view>
+</view>

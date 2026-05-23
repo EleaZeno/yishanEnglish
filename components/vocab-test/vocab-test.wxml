@@ -1,0 +1,64 @@
+<!-- 忆闪 - 增强词汇量测试（25题） -->
+<view class="vocab-overlay">
+  <!-- 介绍页 -->
+  <view class="vocab-intro" wx:if="{{stage === 'intro'}}">
+    <view class="vocab-intro-icon">🧠</view>
+    <text class="vocab-intro-title">词汇量测定</text>
+    <text class="vocab-intro-desc">通过 {{testWords.length}} 个不同难度的单词，基于分层抽样算法估算你的词汇量。</text>
+    <button class="btn btn-primary btn-block btn-lg" bindtap="onAnswer" data-value="{{false}}">开始测定</button>
+    <text class="vocab-intro-hint">请诚实回答是否认识该单词</text>
+  </view>
+
+  <!-- 测试中 -->
+  <view class="vocab-test" wx:if="{{stage === 'test'}}">
+    <view class="vocab-progress">
+      <text class="vocab-stage-label">COGNITIVE SAMPLING</text>
+      <text class="vocab-stage-num">{{currentIndex + 1}} / {{testWords.length}}</text>
+    </view>
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{((currentIndex + 1) / testWords.length) * 100}}%"></view>
+    </view>
+
+    <view class="vocab-word-card">
+      <text class="vocab-word-term">{{testWords[currentIndex].term}}</text>
+      <view class="vocab-level-dots">
+        <view class="vocab-dot {{index < testWords[currentIndex].level ? 'active' : ''}}" wx:for="{{5}}" wx:key="*this" wx:for-index="index"></view>
+      </view>
+    </view>
+
+    <view class="vocab-actions">
+      <button class="btn btn-secondary btn-xl btn-block" bindtap="onAnswer" data-value="{{false}}">不认识</button>
+      <button class="btn btn-primary btn-xl btn-block" bindtap="onAnswer" data-value="{{true}}">认识</button>
+    </view>
+
+    <text class="vocab-footer-hint">请诚实作答，系统将根据反应自动校准模型</text>
+  </view>
+
+  <!-- 结果 -->
+  <view class="vocab-result" wx:if="{{stage === 'result'}}">
+    <view class="vocab-result-icon">🏆</view>
+    <text class="vocab-result-label">ESTIMATED VOCABULARY</text>
+    <text class="vocab-result-value">{{result}}</text>
+    <view class="vocab-result-ci">
+      <text class="tag tag-primary">置信区间 95% (±120)</text>
+    </view>
+
+    <view class="vocab-level-breakdown" wx:if="{{levelStats}}">
+      <view class="level-row" wx:for="{{[1,2,3,4,5]}}" wx:key="*this">
+        <text class="level-name">Level {{item}}</text>
+        <view class="level-bar-track">
+          <view class="level-bar-fill" style="width: {{levelStats[item] ? levelStats[item].rate : 0}}%"></view>
+        </view>
+        <text class="level-rate">{{levelStats[item] ? levelStats[item].rate + '%' : '0%'}}</text>
+      </view>
+    </view>
+
+    <view class="vocab-result-actions">
+      <button class="btn btn-primary btn-xl btn-block" bindtap="onFinish">同步至个人档案</button>
+      <button class="btn btn-ghost btn-block" bindtap="onRetry">重新测定</button>
+    </view>
+  </view>
+
+  <!-- 关闭按钮 -->
+  <view class="vocab-close" bindtap="onDismiss" wx:if="{{stage !== 'result'}}">✕</view>
+</view>

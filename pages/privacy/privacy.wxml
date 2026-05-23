@@ -1,0 +1,56 @@
+<view class="page">
+  <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-header" style="height: {{navBarHeight}}px;">
+      <text class="nav-back" bindtap="onBack">‹ 返回</text>
+      <text class="nav-title">隐私政策</text>
+      <view style="width:80rpx;"></view>
+    </view>
+  </view>
+
+  <scroll-view class="content" scroll-y enhanced show-scrollbar="{{false}}">
+    <view class="card" style="margin:24rpx 32rpx;padding:32rpx;">
+      <text class="p-title">忆闪 YiShan 隐私政策</text>
+      <text class="p-date">生效日期：2026年5月10日</text>
+
+      <view class="p-section">
+        <text class="p-h">一、信息收集</text>
+        <text class="p-p">本小程序收集以下信息以提供核心功能：</text>
+        <text class="p-li">• 单词数据：您添加的单词、释义、发音提示</text>
+        <text class="p-li">• 学习记录：复习时间、掌握程度、学习日志</text>
+        <text class="p-li">• 设置偏好：主题模式、分类筛选</text>
+        <text class="p-p">所有数据默认仅保存在您的设备本地，不会上传至服务器。</text>
+      </view>
+
+      <view class="p-section">
+        <text class="p-h">二、云同步</text>
+        <text class="p-p">如您主动使用"云备份"功能，数据将加密存储于微信云开发环境。您可以随时通过"恢复云备份"下载数据，或通过"清空数据"永久删除。</text>
+      </view>
+
+      <view class="p-section">
+        <text class="p-h">三、数据共享</text>
+        <text class="p-p">我们不会将您的个人学习数据分享给任何第三方。词汇量测试结果仅保存在本地。</text>
+      </view>
+
+      <view class="p-section">
+        <text class="p-h">四、数据存储安全</text>
+        <text class="p-p">所有数据使用微信小程序 Storage API 存储于用户设备本地，云备份使用微信云开发加密存储。我们无权访问您的明文数据。</text>
+      </view>
+
+      <view class="p-section">
+        <text class="p-h">五、您的权利</text>
+        <text class="p-li">• 随时导出所有数据为 JSON 格式</text>
+        <text class="p-li">• 随时删除单个或所有单词</text>
+        <text class="p-li">• 重置新手引导、清除所有本地数据</text>
+      </view>
+
+      <view class="p-section">
+        <text class="p-h">六、联系我们</text>
+        <text class="p-p">如有任何疑问，请通过微信联系开发者。</text>
+      </view>
+
+      <view class="p-footer">
+        <text class="p-p" style="color:#94a3b8;">忆闪 YiShan 开发团队</text>
+      </view>
+    </view>
+  </scroll-view>
+</view>

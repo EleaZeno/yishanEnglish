@@ -1,0 +1,96 @@
+<!-- 忆闪 YiShan - 词库 v2 -->
+<view class="page">
+  <view class="nav-bar" style="padding-top: {{statusBarHeight}}px;">
+    <view class="nav-header" style="height: {{navBarHeight}}px;">
+      <text class="nav-title">词库</text>
+      <view class="nav-actions">
+        <text class="nav-btn" bindtap="onToggleSort">↑↓</text>
+      </view>
+    </view>
+    <view class="nav-search">
+      <view class="search-box">
+        <text class="search-icon">🔍</text>
+        <input class="search-input" placeholder="搜索单词或释义..." value="{{searchQuery}}" bindinput="onSearchInput" confirm-type="search" />
+        <text class="search-clear {{searchQuery ? 'show' : ''}}" bindtap="onClearSearch">✕</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 统计条 -->
+  <view class="stats-bar">
+    <view class="stats-item">
+      <text class="stats-num">{{stats.total}}</text>
+      <text class="stats-lbl">全部</text>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-item">
+      <text class="stats-num text-success">{{stats.mastered}}</text>
+      <text class="stats-lbl">已掌握</text>
+    </view>
+    <view class="stats-divider"></view>
+    <view class="stats-item">
+      <text class="stats-num text-warning">{{stats.newCount}}</text>
+      <text class="stats-lbl">新词</text>
+    </view>
+  </view>
+
+  <!-- 单词列表 -->
+  <scroll-view class="word-list" scroll-y enhanced padrefresherrefresh="onPullDownRefresh" refresher-enabled>
+    <view class="word-card" wx:for="{{filteredWords}}" wx:key="id" data-word="{{item}}" bindtap="onWordTap">
+      <view class="wc-accent {{item.stability >= 85 ? 'accent-master' : (item.stability >= 60 ? 'accent-good' : (item.stability >= 35 ? 'accent-learn' : 'accent-new'))}}"></view>
+      <view class="wc-body">
+        <view class="wc-main">
+          <text class="wc-word">{{item.word}}</text>
+          <text class="wc-def">{{item.definition}}</text>
+        </view>
+        <view class="wc-meta">
+          <text class="wc-stability {{item.stability >= 85 ? 's-master' : (item.stability >= 60 ? 's-good' : (item.stability >= 35 ? 's-learn' : 's-new'))}}">
+            {{item.stability >= 85 ? '精通' : (item.stability >= 60 ? '掌握' : (item.stability >= 35 ? '学习' : '新'))}}
+          </text>
+          <text class="wc-date">{{item._displayDate || '—'}}</text>
+        </view>
+      </view>
+      <text class="wc-arrow">›</text>
+    </view>
+
+    <!-- 空状态 -->
+    <view class="empty-state" wx:if="{{filteredWords.length === 0 && !isLoading}}">
+      <text class="empty-icon">{{searchQuery ? '🔎' : '📚'}}</text>
+      <text class="empty-title">{{searchQuery ? '无匹配结果' : '词库为空'}}</text>
+      <text class="empty-desc">{{searchQuery ? '换个关键词试试' : '添加第一个单词，开始你的记忆之旅'}}</text>
+    </view>
+
+    <!-- 加载骨架 -->
+    <block wx:if="{{isLoading}}">
+      <view class="skeleton skeleton-card" style="height:100rpx;margin:8rpx 16rpx;" wx:for="{{[1,2,3,4,5]}}" wx:key="*this"></view>
+    </block>
+  </scroll-view>
+
+  <!-- 编辑弹窗 -->
+  <view class="overlay" wx:if="{{showEditWord}}" bindtap="onCloseEdit">
+    <view class="modal" catchtap>
+      <view class="modal-header">
+        <text class="modal-title" style="font-size:32rpx;font-weight:800;">编辑单词</text>
+        <text class="modal-del" bindtap="onDeleteWord">🗑️</text>
+      </view>
+      <view class="modal-body">
+        <view class="form-group">
+          <text class="form-label">单词</text>
+          <input class="input" value="{{editForm.word}}" data-field="word" bindinput="onEditField" />
+        </view>
+        <view class="form-group">
+          <text class="form-label">释义</text>
+          <textarea class="textarea" value="{{editForm.definition}}" data-field="definition" bindinput="onEditField" />
+        </view>
+        <view class="form-group">
+          <text class="form-label">发音提示（可选）</text>
+          <input class="input" value="{{editForm.sounds_like}}" data-field="sounds_like" bindinput="onEditField" placeholder="如: /kəˈmjuːnɪkeɪt/" />
+        </view>
+      </view>
+      <view class="modal-footer">
+        <button class="btn btn-ghost flex-1" bindtap="onCloseEdit">取消</button>
+        <button class="btn btn-primary flex-1" bindtap="onSaveEdit">保存</button>
+      </view>
+    </view>
+  </view>
+</view>

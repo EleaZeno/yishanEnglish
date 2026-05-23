@@ -1,0 +1,11 @@
+name = "yishan-mp-api"
+main = "index.js"
+compatibility_date = "2024-12-01"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "yishan"
+database_id = "f3cf9afd-8bd1-4fa8-abf4-048d46e3edda"
+
+[vars]
+JWT_SECRET = "your-jwt-secret-change-me"

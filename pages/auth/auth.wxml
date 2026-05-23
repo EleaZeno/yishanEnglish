@@ -1,0 +1,63 @@
+<!-- 忆闪 YiShan - 登录页面（微信 + 邮箱双通道） -->
+<view class="auth-page">
+  <!-- 品牌区 -->
+  <view class="brand" style="padding-top: calc({{statusBarHeight}}px + 80rpx)">
+    <view class="brand-logo">🧠</view>
+    <text class="brand-name">忆闪 YiShan</text>
+    <text class="brand-desc">SM-2 算法驱动 · 科学记忆 · 多端同步</text>
+  </view>
+
+  <!-- 微信一键登录（小程序主入口） -->
+  <view class="wx-login-section" wx:if="{{hasWeChat}}">
+    <button class="btn btn-wechat" bindtap="onWeChatLogin" loading="{{isLoading}}">
+      <text class="btn-wechat-icon">💬</text>
+      <text>微信一键登录</text>
+    </button>
+    <view class="divider-text">
+      <text>或用邮箱登录</text>
+    </view>
+  </view>
+
+  <!-- 登录/注册卡片 -->
+  <view class="auth-card">
+    <!-- 登录模式 -->
+    <block wx:if="{{!showRegister}}">
+      <view class="form-title">登录</view>
+      <input class="input" type="text" placeholder="邮箱" value="{{email}}" data-field="email" bindinput="onInput" />
+      <input class="input" type="password" placeholder="密码" password value="{{password}}" data-field="password" bindinput="onInput" />
+      <view class="error-box" wx:if="{{errorMessage}}">
+        <text>{{errorMessage}}</text>
+      </view>
+      <button class="btn btn-primary" bindtap="onLogin" loading="{{isLoading}}">登录</button>
+      <view class="mode-switch" bindtap="onToggleMode">
+        <text>没有账户？立即注册 →</text>
+      </view>
+    </block>
+
+    <!-- 注册模式 -->
+    <block wx:else>
+      <view class="form-title">注册</view>
+      <input class="input" type="text" placeholder="邮箱" value="{{email}}" data-field="email" bindinput="onInput" />
+      <input class="input" type="password" placeholder="密码（至少6位）" password value="{{password}}" data-field="password" bindinput="onInput" />
+      <input class="input" type="password" placeholder="确认密码" password value="{{confirm}}" data-field="confirm" bindinput="onInput" />
+      <view class="error-box" wx:if="{{errorMessage}}">
+        <text>{{errorMessage}}</text>
+      </view>
+      <button class="btn btn-primary" bindtap="onRegister" loading="{{isLoading}}">注册</button>
+      <view class="mode-switch" bindtap="onToggleMode">
+        <text>已有账户？去登录 →</text>
+      </view>
+    </block>
+
+    <!-- 游客入口 -->
+    <view class="guest-row" bindtap="onGuest">
+      <text class="guest-link">先体验，稍后登录 →</text>
+    </view>
+  </view>
+
+  <!-- 底部说明 -->
+  <view class="auth-footer">
+    <text>Cloudflare Workers · 数据自主 · 隐私优先</text>
+    <text>你的邮箱和密码经过 PBKDF2 加密存储，仅你本人可以访问</text>
+  </view>
+</view>

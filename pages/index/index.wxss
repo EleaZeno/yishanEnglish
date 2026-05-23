@@ -1,0 +1,114 @@
+/* 忆闪 YiShan - 首页样式（增强版） */
+
+.page { background: var(--color-slate-50); min-height: 100vh; }
+.content { flex: 1; padding-bottom: 32rpx; }
+
+/* 加载骨架 */
+.loading-skeleton { padding-top: 16rpx; }
+
+/* 打卡徽章 */
+.streak-badge {
+  display: flex;
+  align-items: baseline;
+  gap: 4rpx;
+  padding: 6rpx 16rpx;
+  background: linear-gradient(135deg, #f59e0b, #f97316);
+  border-radius: var(--radius-md);
+}
+.streak-num { font-size: 32rpx; font-weight: 900; color: #fff; line-height: 1; }
+.streak-label { font-size: 20rpx; font-weight: 700; color: rgba(255,255,255,0.9); }
+
+/* 今日横幅 */
+.today-banner {
+  background: var(--color-primary-bg);
+  border-radius: var(--radius-lg);
+  padding: 24rpx 32rpx;
+  border: 2rpx solid #e0e7ff;
+}
+.today-banner-idle { background: #fefce8; border-color: #fef08a; }
+.today-info { display: flex; align-items: center; gap: 20rpx; }
+.today-icon { font-size: 44rpx; }
+.today-text { flex: 1; }
+.today-title { font-size: 28rpx; font-weight: 700; color: var(--color-slate-800); display: block; }
+.today-sub { font-size: 22rpx; color: var(--color-slate-500); margin-top: 4rpx; display: block; }
+
+/* 统计网格 */
+.stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20rpx;
+  padding: 24rpx 32rpx;
+}
+
+.stat-card {
+  background: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 28rpx 24rpx;
+  border: 2rpx solid var(--color-slate-100);
+  display: flex;
+  flex-direction: column;
+}
+.stat-card:active { background: var(--color-slate-50); }
+
+.stat-card-primary {
+  background: var(--color-primary);
+  border: none;
+}
+
+.stat-label {
+  font-size: 22rpx;
+  font-weight: 700;
+  color: var(--color-slate-400);
+  text-transform: uppercase;
+  letter-spacing: 1rpx;
+}
+.stat-card-primary .stat-label { color: rgba(255,255,255,0.7); }
+
+.stat-value {
+  font-size: 60rpx;
+  font-weight: 900;
+  color: var(--color-white);
+  line-height: 1.1;
+  margin: 8rpx 0 4rpx;
+}
+
+.stat-value-dark { color: var(--color-slate-900); }
+.stat-value-green { color: var(--color-success); }
+.stat-value-indigo { color: var(--color-primary); }
+
+.stat-sub {
+  font-size: 20rpx;
+  color: var(--color-slate-400);
+}
+.stat-card-primary .stat-sub { color: rgba(255,255,255,0.6); }
+
+/* 图表区 */
+.chart-area {
+  margin: 0 32rpx 24rpx;
+}
+
+/* CTA */
+.cta-card {
+  margin: 0 32rpx 32rpx;
+  background: var(--color-white);
+  border-radius: var(--radius-xl);
+  padding: 40rpx 32rpx 32rpx;
+}
+.cta-header {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 16rpx;
+}
+.cta-title {
+  font-size: 32rpx;
+  font-weight: 900;
+  color: var(--color-slate-900);
+}
+.cta-desc {
+  font-size: 26rpx;
+  color: var(--color-slate-500);
+  line-height: 1.6;
+  margin-bottom: 24rpx;
+  display: block;
+}

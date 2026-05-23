@@ -1,0 +1,329 @@
+/* 忆闪 YiShan - 学习页 v2 */
+
+.study-page {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #f8fafc;
+}
+
+/* ========== 进度条 ========== */
+.study-header {
+  padding: 20rpx 32rpx;
+  background: #fff;
+  border-bottom: 1rpx solid #f1f5f9;
+}
+
+.study-progress { position: relative; }
+
+.prog-bar {
+  height: 10rpx;
+  background: #f1f5f9;
+  border-radius: 5rpx;
+  overflow: visible;
+  position: relative;
+}
+
+.prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #6366f1, #8b5cf6);
+  border-radius: 5rpx;
+  transition: width 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prog-glow {
+  position: absolute;
+  top: -4rpx;
+  width: 18rpx;
+  height: 18rpx;
+  background: #6366f1;
+  border-radius: 50%;
+  box-shadow: 0 0 12rpx rgba(99, 102, 241, 0.5);
+  transform: translateX(-50%);
+  transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.prog-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: 12rpx;
+}
+
+.prog-label {
+  font-size: 24rpx;
+  font-weight: 700;
+  color: #6366f1;
+}
+
+.prog-remain {
+  font-size: 22rpx;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+/* ========== 卡片舞台 ========== */
+.card-stage {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  padding: 48rpx 32rpx;
+}
+
+/* 背景堆叠卡片 */
+.bg-card {
+  position: absolute;
+  left: 32rpx;
+  right: 32rpx;
+  border-radius: 48rpx;
+  overflow: hidden;
+}
+
+.bg-card-1 { top: 56rpx; z-index: 0; }
+.bg-card-2 { top: 72rpx; z-index: -1; }
+.bg-card-3 { top: 88rpx; z-index: -2; }
+
+.bg-card-inner {
+  width: 100%;
+  aspect-ratio: 4/5;
+  background: #fff;
+  border-radius: 48rpx;
+  box-shadow: 0 8rpx 32rpx rgba(0,0,0,0.04);
+}
+
+.bg-card-1 .bg-card-inner {
+  box-shadow: 0 12rpx 40rpx rgba(0,0,0,0.06);
+  border: 2rpx solid #e2e8f0;
+  opacity: 0.95;
+}
+
+.bg-card-2 .bg-card-inner {
+  box-shadow: 0 8rpx 28rpx rgba(0,0,0,0.04);
+  border: 2rpx solid #e2e8f0;
+  opacity: 0.6;
+}
+
+.bg-card-3 .bg-card-inner {
+  box-shadow: 0 4rpx 16rpx rgba(0,0,0,0.02);
+  border: 2rpx solid #e2e8f0;
+  opacity: 0.35;
+}
+
+/* 当前卡片 */
+.top-card {
+  width: 100%;
+  z-index: 1;
+  position: relative;
+}
+
+/* ========== 完成屏幕 ========== */
+.finished-screen {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 32rpx;
+}
+
+.finished-inner {
+  text-align: center;
+  width: 100%;
+  max-width: 560rpx;
+}
+
+.fin-emoji {
+  font-size: 100rpx;
+  margin-bottom: 20rpx;
+  animation: finBounce 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+@keyframes finBounce {
+  0%   { transform: scale(0); opacity: 0; }
+  60%  { transform: scale(1.25); }
+  100% { transform: scale(1); opacity: 1; }
+}
+
+.fin-title {
+  display: block;
+  font-size: 44rpx;
+  font-weight: 900;
+  color: #0f172a;
+  margin-bottom: 40rpx;
+}
+
+.fin-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 48rpx;
+  margin-bottom: 36rpx;
+}
+
+.fin-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8rpx;
+}
+
+.fin-val {
+  font-size: 56rpx;
+  font-weight: 900;
+  line-height: 1;
+}
+
+.fin-val-primary { color: #6366f1; }
+.fin-val-danger  { color: #f43f5e; }
+.fin-val-slate   { color: #475569; }
+
+.fin-lbl {
+  font-size: 22rpx;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+.fin-divider {
+  width: 2rpx;
+  height: 48rpx;
+  background: #e2e8f0;
+}
+
+.fin-streak { margin-bottom: 36rpx; }
+
+.fin-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+}
+
+.fin-back {
+  padding: 20rpx;
+  font-size: 28rpx;
+  color: #94a3b8;
+  font-weight: 600;
+}
+
+/* ========== 空状态 ========== */
+.study-empty {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 32rpx;
+  gap: 20rpx;
+}
+
+.empty-big { font-size: 120rpx; opacity: 0.35; }
+.empty-title { font-size: 34rpx; font-weight: 800; color: #475569; }
+.empty-desc { font-size: 26rpx; color: #94a3b8; text-align: center; }
+
+.empty-btns {
+  width: 100%;
+  max-width: 520rpx;
+  display: flex;
+  flex-direction: column;
+  gap: 24rpx;
+  margin-top: 32rpx;
+}
+
+/* ========== 底部提示 ========== */
+.study-footer {
+  padding: 20rpx 32rpx;
+  padding-bottom: calc(20rpx + env(safe-area-inset-bottom));
+  background: #fff;
+  border-top: 1rpx solid #f1f5f9;
+}
+
+.hint-box {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.hint-arrow {
+  font-size: 32rpx;
+  font-weight: 900;
+}
+
+.hint-arr-l { color: #10b981; }
+.hint-arr-r { color: #f59e0b; }
+
+.hint-spacer { flex: 1; }
+.hint-text { font-size: 24rpx; color: #94a3b8; font-weight: 600; }
+
+/* ★ v3 多阶段过渡动画 */
+.stage-intro,
+.stage-spell,
+.stage-flashcard {
+  animation: stageSlideIn 0.35s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes stageSlideIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95) translateY(16rpx);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 介绍页卡片动画 */
+.intro-card {
+  animation: cardPopIn 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes cardPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.85) translateY(40rpx);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* 拼写页动画 */
+.stage-spell .card {
+  animation: spellReveal 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@keyframes spellReveal {
+  from {
+    opacity: 0;
+    transform: translateX(60rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* 拼写输入颜色过渡 */
+.spell-input {
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.spell-ok {
+  border-color: #10b981 !important;
+  background: #ecfdf5 !important;
+}
+
+.spell-err {
+  border-color: #f43f5e !important;
+  background: #fef2f2 !important;
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-12rpx); }
+  40% { transform: translateX(12rpx); }
+  60% { transform: translateX(-8rpx); }
+  80% { transform: translateX(8rpx); }
+}

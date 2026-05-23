@@ -1,0 +1,56 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/study/study",
+    "pages/library/library",
+    "pages/mine/mine",
+    "pages/auth/auth",
+    "pages/guide/guide",
+    "pages/privacy/privacy"
+  ],
+
+  "window": {
+    "navigationStyle": "custom",
+    "navigationBarTextStyle": "black",
+    "backgroundColor": "#f8fafc",
+    "backgroundTextStyle": "dark"
+  },
+
+  "tabBar": {
+    "color": "#94a3b8",
+    "selectedColor": "#6366f1",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "white",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/tab-home.png",
+        "selectedIconPath": "images/tab-home-active.png"
+      },
+      {
+        "pagePath": "pages/study/study",
+        "text": "学习",
+        "iconPath": "images/tab-study.png",
+        "selectedIconPath": "images/tab-study-active.png"
+      },
+      {
+        "pagePath": "pages/library/library",
+        "text": "词库",
+        "iconPath": "images/tab-library.png",
+        "selectedIconPath": "images/tab-library-active.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "我的",
+        "iconPath": "images/tab-mine.png",
+        "selectedIconPath": "images/tab-mine-active.png"
+      }
+    ]
+  },
+
+  "sitemapLocation": "sitemap.json",
+  "style": "v2",
+  "lazyCodeLoading": "requiredComponents",
+  "__usePrivacyCheck__": true
+}
